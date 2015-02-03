@@ -1,0 +1,68 @@
+// START_PIPE_EXAMPLE OMIT
+s := orujo.NewServer("localhost:8080")
+s.Route(`^/private/.*`,
+    authHandler,
+    myHandler,
+    orujo.M(logHandler),
+).Methods("GET", "POST")
+// STOP_PIPE_EXAMPLE OMIT
+
+// START_HTTPHANDLER OMIT
+type Handler interface {
+	ServeHTTP(ResponseWriter, *Request)
+}
+// STOP_HTTPHANDLER OMIT
+
+// START_TYPE_PIPE OMIT
+type pipe struct {
+	handlers []*pipeHandler // HL
+}
+// STOP_TYPE_PIPE OMIT
+
+// START_PIPEHANDLER OMIT
+type pipeHandler struct {
+	handler   http.Handler
+	mandatory bool // HL
+}
+// STOP_PIPEHANDLER OMIT
+
+// START_PIPEHANDLER_SERVEHTTP OMIT
+func (h *pipeHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) { // HL
+	h.handler.ServeHTTP(w, r)
+}
+// STOP_PIPEHANDLER_SERVEHTTP OMIT
+
+// START_M OMIT
+func M(h http.Handler) http.Handler { // HL
+	return &pipeHandler{handler: h, mandatory: true}
+}
+// STOP_M OMIT
+
+// START_NEWPIPE OMIT
+func newPipe(handlers ...http.Handler) *pipe {
+	p := &pipe{}
+	p.handlers = []*pipeHandler{}
+	for _, h := range handlers {
+		var ph *pipeHandler
+		ph, isPipeHandler := h.(*pipeHandler) // HL
+		if !isPipeHandler { // HL
+			ph = &pipeHandler{handler: h, mandatory: false} // HL
+		} // HL
+		p.handlers = append(p.handlers, ph)
+	}
+	return p
+}
+// STOP_NEWPIPE OMIT
+
+// START_PIPE_SERVEHTTP OMIT
+func (p *pipe) ServeHTTP(w http.ResponseWriter, r *http.Request) { // HL
+	ctx := newPipeContext()
+	for _, ph := range p.handlers {
+		if ctx.quit && !ph.mandatory {
+			continue
+		}
+		pw := newPipeWriter(w, ctx)
+		ph.handler.ServeHTTP(pw, r)
+	}
+}
+// STOP_PIPE_SERVEHTTP OMIT

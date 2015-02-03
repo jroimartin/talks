@@ -1,0 +1,80 @@
+// START_COPY OMIT
+func Copy(dst Writer, src Reader) (written int64, err error)
+func CopyN(dst Writer, src Reader, n int64) (written int64, err error)
+// STOP_COPY OMIT
+
+// START_WRITER OMIT
+type Writer interface {
+	Write(p []byte) (n int, err error)
+}
+// STOP_WRITER OMIT
+
+// START_READER OMIT
+type Reader interface {
+	Read(p []byte) (n int, err error)
+}
+// STOP_READER OMIT
+
+// START_VIEW OMIT
+func (v *View) Write(p []byte) (n int, err error) { // HL
+	for _, ch := range bytes.Runes(p) {
+		switch ch {
+		case '\n':
+			// Append a new line to the view's internal buffer
+		case '\r':
+			// Reset position to the beginning of the line
+		default:
+			// Append character to the view's internal buffer at current position
+		}
+	}
+	return len(p), nil
+}
+// STOP_VIEW OMIT
+
+// START_CONN OMIT
+type Conn interface {
+	// Read reads data from the connection.
+	// Read can be made to time out and return a Error with Timeout() == true
+	// after a fixed time limit; see SetDeadline and SetReadDeadline.
+	Read(b []byte) (n int, err error) // HL
+
+	...
+}
+// STOP_CONN OMIT
+
+// START_PTRACE1 OMIT
+type Ptrace struct {
+	proc *os.Process // HL
+	addr uint64      // HL
+}
+// STOP_PTRACE1 OMIT
+
+// START_PTRACE2 OMIT
+func ForkExec(cmd string, argv []string) (*Ptrace, error) {
+	var err error
+
+	pt := new(Ptrace)
+	attr := &os.ProcAttr{
+		Env: os.Environ(),
+		Sys: &syscall.SysProcAttr{Ptrace: true}, // HL
+	}
+	args := []string{cmd}
+	args = append(args, argv...)
+	pt.proc, err = os.StartProcess(cmd, args, attr) // HL
+	if err != nil {
+		return nil, err
+	}
+	return pt, nil
+}
+// STOP_PTRACE2 OMIT
+
+// START_PTRACE3 OMIT
+func (pt *Ptrace) Read(b []byte) (n int, err error) {
+	n, err = syscall.PtracePeekText(pt.proc.Pid, uintptr(pt.addr), b) // HL
+	if err != nil {
+		return 0, err
+	}
+	pt.addr += uint64(n) // HL
+	return n, nil
+}
+// STOP_PTRACE3 OMIT

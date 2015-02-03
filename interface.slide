@@ -1,0 +1,164 @@
+interface{}
+Let's talk about Go!
+4 Feb 2015
+
+Roi Martin
+jroi.martin@gmail.com
+https://github.com/jroimartin
+@nibble_ds
+
+* The basics
+
+* What is an interface?
+
+From the Go programming Language specification:
+
+_An_interface_type_specifies_a_method_set_called_its_interface._A_variable_of_
+_interface_type_can_store_a_value_of_any_type_with_a_method_set_that_is_any_
+_superset_of_the_interface._Such_a_type_is_said_to_implement_the_interface._
+
+In short:
+
+*Interfaces*in*Go*provide*a*way*to*specify*the*behavior*of*an*object:*if*
+*something*can*do*this,*then*it*can*be*used*here.*
+
+* Demos
+
+* Gocui
+
+* Gocui
+
+Package aimed at creating Console User Interfaces.
+
+Features:
+
+- Minimalist API.
+- *Views*(the*"windows"*in*the*GUI)*implement*the*interface*io.Writer.*
+- Support for overlapping views.
+- The GUI can be modified at runtime.
+- Global and view-level keybindings.
+- Edit mode.
+
+*[DEMOS]*
+
+* How does it work?
+
+We are copying data from an io.Reader to an io.Writer.
+
+.code interface/support/gocui.txt /START_COPY/,/STOP_COPY/
+
+In this case, gocui.View implements the io.Writer interface.
+
+.code interface/support/gocui.txt /START_WRITER/,/STOP_WRITER/
+
+And Ptrace and net.Conn implement the io.Reader interface.
+
+.code interface/support/gocui.txt /START_READER/,/STOP_READER/
+
+* gocui.View
+
+gocui.View is an io.Writer because its method set is a superset of the
+interface.
+
+.code interface/support/gocui.txt /START_VIEW/,/STOP_VIEW/
+
+* net.Conn
+
+net.Conn is an interface itself, but its method set satisfies the io.Reader
+interface.
+
+.code interface/support/gocui.txt /START_CONN/,/STOP_CONN/
+
+* Ptrace
+
+In the case of Ptrace, it starts a new process with os.StartProcess.
+
+.code interface/support/gocui.txt /START_PTRACE1/,/STOP_PTRACE1/
+
+.code interface/support/gocui.txt /START_PTRACE2/,/STOP_PTRACE2/
+
+* Ptrace
+
+Once the process has been started, its memory can be read calling Read like with
+any other io.Reader. Again, it is an io.Reader due to its method set is a
+superset of the iterface.
+
+.code interface/support/gocui.txt /START_PTRACE3/,/STOP_PTRACE3/
+
+* Orujo
+
+* Orujo
+
+Orujo is a minimalist web framework written in Go, which has been designed *to*
+*work*seamlessly*with*the*standard*net/http*library*.
+
+Let's start with a boring hello world:
+
+.play interface/support/orujo_helloworld.go /func main()/,/^}/
+
+* Pipes
+
+What if I want to run multiple handlers when a given path is requested? Let's
+talk about pipes...
+
+.code interface/support/orujo.txt /START_PIPE_EXAMPLE/,/STOP_PIPE_EXAMPLE/
+
+The execution flow would follow the next path:
+
+	authHandler ⇒ myHandler ⇒ M(logHandler)
+
+Have you noticed the call to *orujo.M*?
+
+* http.Handler
+
+In orujo almost everything implements http.Handler:
+
+.code interface/support/orujo.txt /START_HTTPHANDLER/,/STOP_HTTPHANDLER/
+
+Why is that so cool?
+
+* Demo
+
+.play interface/support/orujo_demo.go /START/,/STOP/
+
+* Demo
+
+.play interface/support/orujo_demo_static.go /START/,/STOP/
+
+* How does it work?
+
+The pipe stores a list of pipeHandler's.
+
+.code interface/support/orujo.txt /START_TYPE_PIPE/,/STOP_TYPE_PIPE/
+
+And it is the pipeHandler itself who stores if it is mandatory or not.
+
+.code interface/support/orujo.txt /START_PIPEHANDLER/,/STOP_PIPEHANDLER/
+
+Also the pipeHandler implements the interface http.Handler.
+
+.code interface/support/orujo.txt /START_PIPEHANDLER_SERVEHTTP/,/STOP_PIPEHANDLER_SERVEHTTP/
+
+* How does it work?
+
+So, we can return an http.Handler from orujo.M()
+
+.code interface/support/orujo.txt /START_M/,/STOP_M/
+
+newPipe (which is called by Route()) accepts a list of http.Handler's as
+arguments and take care of converting any http.Handler into a pipeHandler.
+
+.code interface/support/orujo.txt /START_NEWPIPE/,/STOP_NEWPIPE/
+
+* How does it work?
+
+Finally, pipe implents http.Handler, giving total flexibility.
+
+.code interface/support/orujo.txt /START_PIPE_SERVEHTTP/,/STOP_PIPE_SERVEHTTP/
+
+* More information
+
+.link http://golang.org
+.link http://golang.org/ref/spec
+.link https://github.com/jroimartin/gocui
+.link https://github.com/jroimartin/orujo
