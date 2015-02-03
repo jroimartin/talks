@@ -120,6 +120,7 @@ func initKeybindings(g *gocui.Gui) error {
 
 // handleConn handles connections and writes received data to the view called
 // "net". It is called as a goroutine.
+// START OMIT
 func handleConn(g *gocui.Gui, conn net.Conn) {
 	v, err := g.View("net")
 	if err != nil {
@@ -128,7 +129,7 @@ func handleConn(g *gocui.Gui, conn net.Conn) {
 
 	mu.Lock()
 	fmt.Fprintf(v, "Connection from %s:\n\n", conn.RemoteAddr())
-	if _, err := io.Copy(v, conn); err != nil {
+	if _, err := io.Copy(v, conn); err != nil { // HL
 		return
 	}
 	fmt.Fprintf(v, "\n\nEnd of connection.\n\n")
@@ -136,6 +137,8 @@ func handleConn(g *gocui.Gui, conn net.Conn) {
 
 	g.Flush()
 }
+
+// STOP OMIT
 
 // quit gets called when the user wants to close the application and breaks the
 // gocui's main loop.

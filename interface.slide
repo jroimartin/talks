@@ -69,6 +69,8 @@ interface.
 
 .code interface/support/gocui.txt /START_CONN/,/STOP_CONN/
 
+.code interface/demos/net/main.go /START/,/STOP/
+
 * Ptrace
 
 In the case of Ptrace, it starts a new process with os.StartProcess.
@@ -84,6 +86,12 @@ any other io.Reader. Again, it is an io.Reader due to its method set is a
 superset of the iterface.
 
 .code interface/support/gocui.txt /START_PTRACE3/,/STOP_PTRACE3/
+
+* Ptrace
+
+The memory of the process is written into the view using a hex dumper.
+
+.code interface/demos/mem/main.go /START/,/STOP/
 
 * Orujo
 

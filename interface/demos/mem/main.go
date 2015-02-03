@@ -171,6 +171,7 @@ func quit(g *gocui.Gui, v *gocui.View) error {
 
 // seekMem allows to scroll the memory dump. delta is a displacement relative to
 // the current memory address.
+// START OMIT
 func seekMem(v *gocui.View, delta int) error {
 	addr := curAddr + uint64(delta)
 	if addr < startAddr || addr > endAddr {
@@ -182,10 +183,12 @@ func seekMem(v *gocui.View, delta int) error {
 
 	dumper := hex.Dumper(v)
 	pt.Seek(addr)
-	if _, err := io.CopyN(dumper, pt, blocksize); err != nil {
+	if _, err := io.CopyN(dumper, pt, blocksize); err != nil { // HL
 		return err
 	}
 	curAddr = addr
 
 	return nil
 }
+
+// STOP OMIT
