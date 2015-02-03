@@ -8,6 +8,7 @@ import (
 	"github.com/jroimartin/orujo"
 )
 
+// START OMIT
 func main() {
 	s := orujo.NewServer("localhost:8080")
 
@@ -17,3 +18,5 @@ func main() {
 
 	log.Fatalln(s.ListenAndServe())
 }
+
+// STOP OMIT

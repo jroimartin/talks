@@ -94,7 +94,7 @@ Orujo is a minimalist web framework written in Go, which has been designed *to*
 
 Let's start with a boring hello world:
 
-.play interface/support/orujo_helloworld.go /func main()/,/^}/
+.play interface/support/orujo_helloworld.go /START/,/STOP/
 
 * Pipes
 
