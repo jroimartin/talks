@@ -66,7 +66,7 @@ func listenAndDump(g *gocui.Gui, addr string) error {
 // layout defines the GUI's layout. In this case, it contains two views: the
 // memory dump and a legend with information about keybindings.
 func layout(g *gocui.Gui) error {
-	maxX, _ := g.Size()
+	maxX, maxY := g.Size()
 
 	if v, err := g.SetView("legend", maxX-23, 0, maxX-1, 5); err != nil {
 		if err != gocui.ErrorUnkView {
@@ -78,7 +78,7 @@ func layout(g *gocui.Gui) error {
 		fmt.Fprintln(v, "^C: Exit")
 	}
 
-	if v, err := g.SetView("net", 0, 0, 80, 35); err != nil {
+	if v, err := g.SetView("net", 0, 0, maxX-24, maxY-1); err != nil {
 		if err != gocui.ErrorUnkView {
 			return err
 		}
