@@ -2,6 +2,10 @@
 
 Some of the talks I've given.
 
+## Index
+
+* interface.slide: interface{} (4 Feb 2015 @ Golang Barcelona Meetup)
+
 ## Present
 
 The slides have been written to be used with present. You can find more
