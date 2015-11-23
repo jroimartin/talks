@@ -95,7 +95,7 @@ Relevant files:
 
 *github.com/jroimartin/syscallinfo/linux_386/gen.go*
 
-.code gogenerate/syscallinfo_gen.go
+.code gogenerate/syscallinfo_gen.txt
 
 *github.com/jroimartin/syscallinfo/mksyscalltable.go*
 
@@ -105,13 +105,13 @@ Relevant files:
 
 *github.com/jroimartin/syscallinfo/linux_386/syscall_32.json*
 
-.code gogenerate/syscallinfo_syscall_32.json
+.code gogenerate/syscallinfo_syscall_32.txt
 
 * Syscallinfo
 
 *github.com/jroimartin/syscallinfo/linux_386/syscalltable.go*
 
-.code gogenerate/syscallinfo_syscalltable.go
+.code gogenerate/syscallinfo_syscalltable.txt
 
 * More information
 
