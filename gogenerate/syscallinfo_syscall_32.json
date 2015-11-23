@@ -1,0 +1,22 @@
+[
+	{
+		"entry": "sys_restart_syscall",
+		"num": 0,
+		"args": [],
+		"name": "restart_syscall",
+		"context": ""
+	},
+	{
+		"entry": "sys_exit",
+		"num": 1,
+		"args": [
+			{
+				"refcount": 0,
+				"sig": "int error_code",
+				"context": ""
+			}
+		],
+		"name": "exit",
+		"context": ""
+	},
+	...

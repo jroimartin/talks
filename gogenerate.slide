@@ -1,0 +1,120 @@
+Let go generate to do the dirty work
+Golang November Meetup
+25 Nov 2015
+
+Roi Martin (nibble)
+jroi.martin@gmail.com
+https://github.com/jroimartin
+@nibble_ds
+
+* Agenda
+
+- What's go generate?
+- Live coding! :D
+- Real world examples
+
+* What's go generate?
+
+*Target*
+
+Automatic code generation.
+
+*Motivation*
+
+- Automatic code generation
+- In Go we don't use a build tool (e.g. make)
+- The go tool gets all necessary build information from the Go source
+
+*Magic*
+
+	//go:generate command argument...
+
+*Approach*
+
+Explicit execution of *go*generate* by the packege's author.
+
+* Live coding! :D
+
+* Real world examples
+
+* Go's source code
+
+_There_are_lots_of_other_uses_of_go_generate_already_installed_in_the_Go_tree._
+_Examples_include_generating_Unicode_tables_in_the_unicode_package,_creating_
+_efficient_methods_for_encoding_and_decoding_arrays_in_encoding/gob,_producing_
+_time_zone_data_in_the_time_package,_and_so_on._
+
+	n@HAL:~/go/src$ grep -Rl "go:generate" *
+	cmd/compile/internal/big/float.go
+	cmd/compile/internal/gc/lex.go
+	cmd/go/alldocs.go
+	cmd/go/generate.go
+	cmd/go/generate_test.go
+	cmd/go/testdata/generate/test1.go
+	cmd/go/testdata/generate/test2.go
+	cmd/go/testdata/generate/test3.go
+	cmd/go/testdata/generate/test4.go
+	cmd/internal/obj/arm/a.out.go
+	cmd/internal/obj/arm64/a.out.go
+	cmd/internal/obj/ppc64/a.out.go
+	cmd/internal/obj/x86/a.out.go
+	cmd/yacc/testdata/expr/main.go
+	compress/flate/inflate.go
+
+* Go's source code
+
+	crypto/md5/md5.go
+	crypto/x509/root_darwin.go
+	debug/dwarf/entry.go
+	encoding/gob/decode.go
+	encoding/gob/encode.go
+	image/color/palette/generate.go
+	image/internal/imageutil/imageutil.go
+	internal/syscall/windows/registry/syscall.go
+	internal/syscall/windows/syscall_windows.go
+	math/big/float.go
+	runtime/mbarrier.go
+	runtime/runtime.go
+	runtime/runtime2.go
+	strconv/quote.go
+	syscall/syscall_windows.go
+	time/zoneinfo_windows.go
+	unicode/letter.go
+
+Let's take an example:
+
+	$ vim $HOME/go/image/color/palette/generate.go
+
+* Syscallinfo
+
+_syscallinfo_is_a_package_to_access_and_represent_syscalls_information_
+
+.link github.com/jroimartin/syscallinfo
+
+Relevant files:
+
+*github.com/jroimartin/syscallinfo/linux_386/gen.go*
+
+.code gogenerate/syscallinfo_gen.go
+
+*github.com/jroimartin/syscallinfo/mksyscalltable.go*
+
+	$ vim $GOPATH/src/github.com/jroimartin/syscallinfo/mksyscalltable.go
+
+* Syscallinfo
+
+*github.com/jroimartin/syscallinfo/linux_386/syscall_32.json*
+
+.code gogenerate/syscallinfo_syscall_32.json
+
+* Syscallinfo
+
+*github.com/jroimartin/syscallinfo/linux_386/syscalltable.go*
+
+.code gogenerate/syscallinfo_syscalltable.go
+
+* More information
+
+.link https://golang.org
+.link https://blog.golang.org/generate
+.link https://github.com/jroimartin/syscallinfo

@@ -5,6 +5,7 @@ Some of the talks I've given.
 ## Index
 
 * interface.slide: interface{} (4 Feb 2015 @ Golang Barcelona Meetup)
+* gogenerate.slide: Let go generate to do the dirty work (25 Nov 2015 @ Golang Barcelona Meetup)
 
 ## Present
 
