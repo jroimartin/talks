@@ -81,10 +81,6 @@ _time_zone_data_in_the_time_package,_and_so_on._
 	time/zoneinfo_windows.go
 	unicode/letter.go
 
-Let's take an example:
-
-	$ vim $HOME/go/image/color/palette/generate.go
-
 * Syscallinfo
 
 _syscallinfo_is_a_package_to_access_and_represent_syscalls_information_
