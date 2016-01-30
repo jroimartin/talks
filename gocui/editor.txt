@@ -1,0 +1,3 @@
+type Editor interface {
+	Edit(v *View, key Key, ch rune, mod Modifier)
+}

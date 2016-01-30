@@ -1,0 +1,79 @@
+gocui
+All your term are belong to us
+31 Jan 2016
+
+Roi Martin
+jroi.martin@gmail.com
+https://github.com/jroimartin
+@nibble_ds
+
+* Why am I here?
+
+Yeah... ok... you know... I want one of those (blue) gophers... 0:)
+
+.image gocui/gophers.png
+
+* First things first
+
+Links:
+.link https://github.com/jroimartin/gocui
+.link https://godoc.org/github.com/jroimartin/gocui
+
+* What's gocui? Why?
+
+gocui allows to create console user interfaces.
+
+Because:
+
+- I hate coding GUIs
+- I like terminals
+- I like text only user interfaces (acme inspiration)
+- I wanted a sane library for doing this
+
+* Y U NO USE NCURSES?
+
+* Y U NO USE NCURSES?
+
+.image gocui/no_u.jpg
+
+* DEMO
+
+* Features
+
+*Obssesive-compulsive* focus on:
+
+- Minimalist API.
+- Interfaces:
+- Views (the "windows" in the GUI) implement the interface *io.ReadWriter*.
+- Editors (the entities that allow to customize edition mode) are also interfaces.
+- Concurrency: _$_go_run_-race_..._
+- Documentation!!! (there are no tests though... shame on me!)
+
+* Also...
+
+- Custom Editor: In short, you can implement you own edition mode (vim-like, emacs-like, etc.)
+- Mouse support.
+- Support for overlapping views.
+- Global and view-level keybindings.
+- Text wrapping.
+
+* Interfaces
+
+.image gocui/allthethings.jpg
+
+* Interfaces
+
+- *gocui.View
+
+.code gocui/readwriter.txt
+
+- gocui.Editor
+
+.code gocui/editor.txt
+
+* DEMO
+
+* More information
+
+.link https://github.com/jroimartin/gocui
+.link https://godoc.org/github.com/jroimartin/gocui
