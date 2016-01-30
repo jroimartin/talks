@@ -7,19 +7,13 @@ import (
 	"log"
 	"net"
 	"os"
-	"runtime"
-	"sync"
 
 	"github.com/jroimartin/gocui"
 )
 
 const blocksize = 512
 
-var mu sync.Mutex // protects view "net"
-
 func main() {
-	runtime.LockOSThread()
-
 	if len(os.Args) != 2 {
 		fmt.Fprintln(os.Stderr, "usage: net addr:port")
 		os.Exit(2)
@@ -122,8 +116,10 @@ func initKeybindings(g *gocui.Gui) error {
 }
 
 // handleConn handles connections and writes received data to the view called
-// "net". It is called as a goroutine.
+// "net", closing the connection after doing that. It is called as a goroutine.
 func handleConn(g *gocui.Gui, conn net.Conn) error {
+	defer conn.Close()
+
 	v, err := g.View("net")
 	if err != nil {
 		return err
