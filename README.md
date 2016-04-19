@@ -7,6 +7,7 @@ Some of the talks I've given.
 * interface.slide: interface{} (4 Feb 2015 @ Golang Barcelona Meetup)
 * gogenerate.slide: Let go generate to do the dirty work (25 Nov 2015 @ Golang Barcelona Meetup)
 * gocui.slide: gocui. All your term are belong to us (31 Jan 2016 @ FOSDEM)
+* queues.slide: rpcmq. All your queue are belong to us (20 Apr 2016 @ Golang Barcelona Meetup)
 
 ## Present
 

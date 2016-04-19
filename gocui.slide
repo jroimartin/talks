@@ -13,6 +13,8 @@ Yeah... ok... you know... I want one of those (blue) gophers... 0:)
 
 .image gocui/gophers.png
 
+* gocui
+
 * First things first
 
 Links:
@@ -21,7 +23,8 @@ Links:
 
 * What's gocui? Why?
 
-gocui allows to create console user interfaces.
+- gocui allows to create console user interfaces.
+- termbox-go (by @nsf) is used under the hood.
 
 Because:
 
@@ -30,32 +33,23 @@ Because:
 - I like text only user interfaces (acme inspiration)
 - I wanted a sane library for doing this
 
+* DEMO
+
 * Y U NO USE NCURSES?
 
 * Y U NO USE NCURSES?
 
 .image gocui/no_u.jpg
 
-* DEMO
-
 * Features
 
 *Obssesive-compulsive* focus on:
 
 - Minimalist API.
-- Interfaces:
 - Views (the "windows" in the GUI) implement the interface *io.ReadWriter*.
 - Editors (the entities that allow to customize edition mode) are also interfaces.
 - Concurrency: _$_go_run_-race_..._
 - Documentation!!! (there are no tests though... shame on me!)
-
-* Also...
-
-- Custom Editor: In short, you can implement you own edition mode (vim-like, emacs-like, etc.)
-- Mouse support.
-- Support for overlapping views.
-- Global and view-level keybindings.
-- Text wrapping.
 
 * Interfaces
 

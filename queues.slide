@@ -1,0 +1,131 @@
+All your queue are belong to us (I)
+Golang Barcelona
+20 Apr 2016
+
+Roi Martin
+jroi.martin@gmail.com
+https://github.com/jroimartin
+@nibble_ds
+
+* rpcmq
+
+_The_package_rpcmq_implements_an_RPC_protocol_over_AMQP._
+
+* WAT
+
+.image queues/wat.jpg
+
+* RPC. AMQP. Queues
+
+*RPC*
+
+_In_distributed_computing,_a_remote_procedure_call_(RPC)_is_when_a_computer_
+_program_causes_a_procedure_(subroutine)_to_execute_in_another_address_space_
+_(commonly_on_another_computer_on_a_shared_network)._
+
+*AMQP*and*Queues*
+
+_AMQP_stands_for_Advanced_Message_Queuing_Protocol._It_is_a_binary,_
+_application_layer_protocol,_designed_to_efficiently_support_a_
+_wide_variety_of_messaging_applications_and_communication_patterns._
+
+_Message_queues_provide_an_asynchronous_communications_protocol,_meaning_that_
+_the_sender_and_receiver_of_the_message_do_not_need_to_interact_with_the_message_
+_queue_at_the_same_time._Messages_placed_onto_the_queue_are_stored_until_the_
+_recipient_retrieves_them._
+
+* Distributed systems
+
+.image queues/distributed_systems.jpg
+
+* I'm poor...
+
+.image queues/poor.jpg
+
+* Concepts
+
+- Brokers
+- Producers
+- Consumers
+- Exchange
+- Queues
+- Messages
+
+* Let's put it all together
+
+.image queues/broker.png
+
+* Distributed tasks based on queues
+
+Problems:
+
+- Messages and queues. How do you return values?
+- Error resiliance: netsplits, latency, crashes
+- Dupped results (but *not* lost messages)
+
+Design constrains:
+
+- Auto-retry
+- I'm fucking nazi *^w* strict with acks => publish is an atomic operation
+- Idempotence (must be implemented by the user)
+
+* Have you heard about CELERY?
+
+* Let's talk about python....
+
+.image queues/python_concurrent.jpg
+
+* GIL
+
+Extracted from the Python's WIKI:
+
+_In_CPython,_the_global_interpreter_lock,_or_GIL,_is_a_mutex_that_
+_prevents_multiple_native_threads_from_executing_Python_bytecodes_at_
+_once._This_lock_is_necessary_mainly_because_CPython's_memory_management_
+_is_not_thread-safe._(However,_since_the_GIL_exists,_other_features_have_
+_grown_to_depend_on_the_guarantees_that_it_enforces.)_
+
+Just in case you *don't*want* / *can't* accept it:
+
+.link https://wiki.python.org/moin/GlobalInterpreterLock
+
+* GIL
+
+.image queues/gil_killit.jpg
+
+* Wait, have you seen that?
+
+*(However,*since*the*GIL*exists,*other*features*have*
+*grown*to*depend*on*the*guarantees*that*it*enforces.)*
+
+* Wait, have you seen that?
+
+.image queues/gil_notabug.jpg
+
+* RPCMQ
+
+- RPC protocolo implemented on top of AMQP
+- Compatible with RabbitMQ
+- Minimalist and sane API
+- Pure Go => static bins
+- Fully async
+- Controllable via monmq (which also uses rpcmq under the hood)
+
+* RPCMQ
+
+.image queues/API.png
+
+* Design
+
+.image queues/design.png
+
+.link http://tryrabbitmq.com
+
+* DEMO (Didn't test my demos + updates + ... 0:)
+
+* More information
+
+.link http://golang.org
+.link https://github.com/jroimartin/rpcmq
+.link https://github.com/jroimartin/monmq
+.link https://github.com/jroimartin/gocui
