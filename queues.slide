@@ -9,11 +9,17 @@ https://github.com/jroimartin
 
 * rpcmq
 
-_The_package_rpcmq_implements_an_RPC_protocol_over_AMQP._
+First things first...
 
-* WAT
+.link github.com/jroimartin/rpcmq
 
-.image queues/wat.jpg
+or...
+
+.link http://goo.gl/VE3iG1
+
+Now, long story short:
+
+.image queues/inception.jpg
 
 * RPC. AMQP. Queues
 
