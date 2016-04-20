@@ -9,6 +9,12 @@ https://github.com/jroimartin
 
 * rpcmq
 
+Long story short:
+
+.image queues/inception.jpg
+
+* rpcmq
+
 First things first...
 
 .link github.com/jroimartin/rpcmq
@@ -16,10 +22,6 @@ First things first...
 or...
 
 .link http://goo.gl/VE3iG1
-
-Now, long story short:
-
-.image queues/inception.jpg
 
 * RPC. AMQP. Queues
 
